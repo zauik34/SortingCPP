@@ -1,34 +1,14 @@
 cmake_minimum_required(VERSION 3.20)
-project(SortingLabs VERSION 1.0 LANGUAGES CXX)
+project(SortingCPP LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-option(SORTING_RUN_TESTS_AFTER_BUILD "Run all Catch2 tests after linking" ON)
+if(MSVC)
+    add_compile_options(/utf-8)
+endif()
 
-function(add_sort_library directory name)
-    add_library(${name} STATIC ${directory}/src/${name}.cpp ${directory}/include/${name}.h)
-    target_include_directories(${name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/${directory}/include)
-    if(MSVC)
-        target_compile_options(${name} PRIVATE /W4 /permissive- /utf-8)
-    else()
-        target_compile_options(${name} PRIVATE -Wall -Wextra -Wpedantic)
-    endif()
-    set_property(TARGET ${name} PROPERTY FOLDER "SortingLibraries")
-endfunction()
-add_sort_library(sorting insertion_sort)
-add_sort_library(sorting selection_sort)
-add_sort_library(sorting exchange_sort)
-add_sort_library(sorting bubble_sort)
-add_sort_library(sorting optimized_bubble_sort)
-add_sort_library(enhanced_sorting binary_insertion_sort)
-add_sort_library(enhanced_sorting shaker_sort)
-add_sort_library(enhanced_sorting shell_sort)
-add_sort_library(enhanced_sorting quick_sort)
-add_sort_library(external_sorting two_phase_merge_sort)
-add_sort_library(external_sorting one_phase_merge_sort)
-add_sort_library(external_sorting natural_merge_sort)
-
-set(SORTING_LIBRARIES
+# При сборке через CMake каждый алгоритм — отдельная библиотека.
+set(ALGORITHMS
     insertion_sort
     selection_sort
     exchange_sort
@@ -42,38 +22,31 @@ set(SORTING_LIBRARIES
     one_phase_merge_sort
     natural_merge_sort
 )
-add_custom_target(SortingLibraries DEPENDS ${SORTING_LIBRARIES})
-
-enable_testing()
-set(TEST_SOURCES tests/main.cpp tests/test_helpers.h tests/test_file_support.cpp tests/test_optimizations.cpp
-    tests/test_insertion_sort.cpp
-    tests/test_selection_sort.cpp
-    tests/test_exchange_sort.cpp
-    tests/test_bubble_sort.cpp
-    tests/test_optimized_bubble_sort.cpp
-    tests/test_binary_insertion_sort.cpp
-    tests/test_shaker_sort.cpp
-    tests/test_shell_sort.cpp
-    tests/test_quick_sort.cpp
-    tests/test_two_phase_merge_sort.cpp
-    tests/test_one_phase_merge_sort.cpp
-    tests/test_natural_merge_sort.cpp
-)
-add_executable(SortingTests ${TEST_SOURCES})
-target_include_directories(SortingTests PRIVATE third_party tests)
-target_link_libraries(SortingTests PRIVATE ${SORTING_LIBRARIES})
-if(MSVC)
-    target_compile_options(SortingTests PRIVATE /W4 /permissive- /utf-8)
-else()
-    target_compile_options(SortingTests PRIVATE -Wall -Wextra -Wpedantic)
-endif()
-foreach(lab RANGE 1 4)
-    add_test(NAME lab${lab} COMMAND SortingTests "[lab${lab}]")
+foreach(name IN LISTS ALGORITHMS)
+    add_library(${name} STATIC Sem1/${name}.cpp Sem1/${name}.h)
+    target_include_directories(${name} PUBLIC Sem1)
 endforeach()
-if(SORTING_RUN_TESTS_AFTER_BUILD)
-    add_custom_command(TARGET SortingTests POST_BUILD
-        COMMAND $<TARGET_FILE:SortingTests>
-        COMMENT "Running all Catch2 unit tests" VERBATIM)
-endif()
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT SortingTests)
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+add_executable(Test
+    Test/Test.cpp
+    Test/test_files.cpp
+    Test/test_insertion_sort.cpp
+    Test/test_selection_sort.cpp
+    Test/test_exchange_sort.cpp
+    Test/test_bubble_sort.cpp
+    Test/test_optimized_bubble_sort.cpp
+    Test/test_binary_insertion_sort.cpp
+    Test/test_shaker_sort.cpp
+    Test/test_shell_sort.cpp
+    Test/test_quick_sort.cpp
+    Test/test_two_phase_merge_sort.cpp
+    Test/test_one_phase_merge_sort.cpp
+    Test/test_natural_merge_sort.cpp
+)
+target_include_directories(Test PRIVATE . Sem1)
+target_link_libraries(Test PRIVATE ${ALGORITHMS})
+add_custom_command(TARGET Test POST_BUILD COMMAND $<TARGET_FILE:Test> VERBATIM)
+enable_testing()
+foreach(lab RANGE 1 4)
+    add_test(NAME lab${lab} COMMAND Test "[lab${lab}]")
+endforeach()

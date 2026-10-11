@@ -1,4 +1,4 @@
 * text=auto eol=lf
 *.sln text eol=crlf
 *.vcxproj text eol=crlf
-third_party/** whitespace=-blank-at-eof
+catch2/** whitespace=-blank-at-eof
