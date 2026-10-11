@@ -1,10 +1,11 @@
 #include <catch2/catch.hpp>
 #include "shell_sort.h"
 
-TEST_CASE("shellSort: normal array", "[lab3][shell_sort]") {
-    std::vector<int> arr = {5, 3, 1, 4, 2};
+// Индивидуальное задание: вариант 9.
+TEST_CASE("shellSort: variant 9", "[lab3][shell_sort][variant9]") {
+    std::vector<int> arr = {7, 17, 9, 3, 13, 1, 16, 10};
     shellSort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
 }
 
 TEST_CASE("shellSort: empty array", "[lab3][shell_sort]") {

@@ -1,10 +1,11 @@
 #include <catch2/catch.hpp>
 #include "one_phase_merge_sort.h"
 
-TEST_CASE("onePhaseMergeSort: normal array", "[lab4][one_phase_merge_sort]") {
-    std::vector<int> arr = {5, 3, 1, 4, 2};
+// Индивидуальное задание: вариант 9.
+TEST_CASE("onePhaseMergeSort: variant 9", "[lab4][one_phase_merge_sort][variant9]") {
+    std::vector<int> arr = {7, 17, 9, 3, 13, 1, 16, 10};
     onePhaseMergeSort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
 }
 
 TEST_CASE("onePhaseMergeSort: empty array", "[lab4][one_phase_merge_sort]") {
@@ -59,5 +60,13 @@ TEST_CASE("onePhaseMergeSort: empty and single element files", "[lab4][one_phase
     writeVectorToFile(filename, std::vector<double>{2.5});
     onePhaseMergeSortFile<double>(filename);
     REQUIRE(readVectorFromFile<double>(filename) == std::vector<double>{2.5});
+    std::remove(filename.c_str());
+}
+
+TEST_CASE("onePhaseMergeSort: variant 9 file", "[lab4][one_phase_merge_sort][variant9]") {
+    const std::string filename = "variant9_test_one_phase_merge_sort.bin";
+    writeVectorToFile(filename, std::vector<int>{7, 17, 9, 3, 13, 1, 16, 10});
+    onePhaseMergeSortFile<int>(filename);
+    REQUIRE(readVectorFromFile<int>(filename) == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
     std::remove(filename.c_str());
 }

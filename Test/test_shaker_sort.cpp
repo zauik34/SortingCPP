@@ -1,10 +1,11 @@
 #include <catch2/catch.hpp>
 #include "shaker_sort.h"
 
-TEST_CASE("shakerSort: normal array", "[lab2][shaker_sort]") {
-    std::vector<int> arr = {5, 3, 1, 4, 2};
+// Индивидуальное задание: вариант 9.
+TEST_CASE("shakerSort: variant 9", "[lab2][shaker_sort][variant9]") {
+    std::vector<int> arr = {7, 17, 9, 3, 13, 1, 16, 10};
     shakerSort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
 }
 
 TEST_CASE("shakerSort: empty array", "[lab2][shaker_sort]") {

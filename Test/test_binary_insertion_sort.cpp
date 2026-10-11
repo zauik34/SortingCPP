@@ -1,10 +1,11 @@
 #include <catch2/catch.hpp>
 #include "binary_insertion_sort.h"
 
-TEST_CASE("binaryInsertionSort: normal array", "[lab2][binary_insertion_sort]") {
-    std::vector<int> arr = {5, 3, 1, 4, 2};
+// Индивидуальное задание: вариант 9.
+TEST_CASE("binaryInsertionSort: variant 9", "[lab2][binary_insertion_sort][variant9]") {
+    std::vector<int> arr = {7, 17, 9, 3, 13, 1, 16, 10};
     binaryInsertionSort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
 }
 
 TEST_CASE("binaryInsertionSort: empty array", "[lab2][binary_insertion_sort]") {

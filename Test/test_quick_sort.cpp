@@ -1,10 +1,11 @@
 #include <catch2/catch.hpp>
 #include "quick_sort.h"
 
-TEST_CASE("quickSort: normal array", "[lab3][quick_sort]") {
-    std::vector<int> arr = {5, 3, 1, 4, 2};
+// Индивидуальное задание: вариант 9.
+TEST_CASE("quickSort: variant 9", "[lab3][quick_sort][variant9]") {
+    std::vector<int> arr = {7, 17, 9, 3, 13, 1, 16, 10};
     quickSort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{1, 3, 7, 9, 10, 13, 16, 17});
 }
 
 TEST_CASE("quickSort: empty array", "[lab3][quick_sort]") {
