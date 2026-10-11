@@ -1,0 +1,16 @@
+name: C++ unit tests
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - name: Build and run automatic tests
+        run: cmake --build build --config Debug --parallel 2
+      - name: CTest
+        run: ctest --test-dir build -C Debug --output-on-failure

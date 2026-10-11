@@ -1,0 +1,15 @@
+build*/
+out/
+.vs/
+.vscode/
+*.user
+*.suo
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exe
+*.lib
+*.a
+*.tmp
+__pycache__/

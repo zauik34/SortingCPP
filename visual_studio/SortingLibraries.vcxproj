@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals"><ProjectGuid>{FC77A193-CED5-53A8-8B84-34CFC63EA0B9}</ProjectGuid><Keyword>MakeFileProj</Keyword><RootNamespace>SortingLibraries</RootNamespace></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration"><ConfigurationType>Makefile</ConfigurationType><PlatformToolset>v143</PlatformToolset></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <CMakeExe>$(VSInstallDir)Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe</CMakeExe>
+    <CMakeExe Condition="!Exists('$(CMakeExe)')">cmake</CMakeExe>
+    <NMakeBuildCommandLine>&quot;$(CMakeExe)&quot; -S &quot;$(ProjectDir)..&quot; -B &quot;$(ProjectDir)..\build-vs&quot; -G &quot;Visual Studio 17 2022&quot; -A x64 &amp;&amp; &quot;$(CMakeExe)&quot; --build &quot;$(ProjectDir)..\build-vs&quot; --config $(Configuration) --target SortingLibraries --parallel 2</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>&quot;$(CMakeExe)&quot; -S &quot;$(ProjectDir)..&quot; -B &quot;$(ProjectDir)..\build-vs&quot; -G &quot;Visual Studio 17 2022&quot; -A x64 &amp;&amp; &quot;$(CMakeExe)&quot; --build &quot;$(ProjectDir)..\build-vs&quot; --config $(Configuration) --target clean &amp;&amp; &quot;$(CMakeExe)&quot; --build &quot;$(ProjectDir)..\build-vs&quot; --config $(Configuration) --target SortingLibraries --parallel 2</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>&quot;$(CMakeExe)&quot; --build &quot;$(ProjectDir)..\build-vs&quot; --config $(Configuration) --target clean</NMakeCleanCommandLine>
+    <NMakeOutput>$(ProjectDir)..\build-vs\$(Configuration)\insertion_sort.lib</NMakeOutput>
+    <NMakeIncludeSearchPath>$(ProjectDir)..\sorting\include;$(ProjectDir)..\enhanced_sorting\include;$(ProjectDir)..\external_sorting\include;$(ProjectDir)..\third_party;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">$(NMakePreprocessorDefinitions);_DEBUG</NMakePreprocessorDefinitions>
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)'=='Release'">$(NMakePreprocessorDefinitions);NDEBUG</NMakePreprocessorDefinitions>
+    <NMakeIntelliSenseOptions>/std:c++17 $(NMakeIntelliSenseOptions)</NMakeIntelliSenseOptions>
+    <LocalDebuggerCommand>$(ProjectDir)..\build-vs\$(Configuration)\SortingTests.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\enhanced_sorting\include\binary_insertion_sort.h" />
+    <None Include="..\enhanced_sorting\include\quick_sort.h" />
+    <None Include="..\enhanced_sorting\include\shaker_sort.h" />
+    <None Include="..\enhanced_sorting\include\shell_sort.h" />
+    <None Include="..\enhanced_sorting\src\binary_insertion_sort.cpp" />
+    <None Include="..\enhanced_sorting\src\quick_sort.cpp" />
+    <None Include="..\enhanced_sorting\src\shaker_sort.cpp" />
+    <None Include="..\enhanced_sorting\src\shell_sort.cpp" />
+    <None Include="..\external_sorting\include\natural_merge_sort.h" />
+    <None Include="..\external_sorting\include\one_phase_merge_sort.h" />
+    <None Include="..\external_sorting\include\two_phase_merge_sort.h" />
+    <None Include="..\external_sorting\src\natural_merge_sort.cpp" />
+    <None Include="..\external_sorting\src\one_phase_merge_sort.cpp" />
+    <None Include="..\external_sorting\src\two_phase_merge_sort.cpp" />
+    <None Include="..\external_sorting\include\detail\file_sort_support.h" />
+    <None Include="..\sorting\include\bubble_sort.h" />
+    <None Include="..\sorting\include\exchange_sort.h" />
+    <None Include="..\sorting\include\insertion_sort.h" />
+    <None Include="..\sorting\include\optimized_bubble_sort.h" />
+    <None Include="..\sorting\include\selection_sort.h" />
+    <None Include="..\sorting\src\bubble_sort.cpp" />
+    <None Include="..\sorting\src\exchange_sort.cpp" />
+    <None Include="..\sorting\src\insertion_sort.cpp" />
+    <None Include="..\sorting\src\optimized_bubble_sort.cpp" />
+    <None Include="..\sorting\src\selection_sort.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
